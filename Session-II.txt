@@ -1,0 +1,59 @@
+9:50 Insert
+11:32 Insert many
+12:25 Query/find data
+13:00 Filter: Find data with filter (WHERE)
+13:31 Sort
+14:04 Count
+14:20 Limit
+14:54 for each (get only specific data from each document)
+15:41 Find one specific row/document
+16:00 Update (replace entire document)
+18:11 Update (replace only specific fields but keep others)
+19:47 Increment
+20:43 Rename field/key
+21:17 Delete
+22:06 Sub-documents (Update of a document but actually just an insert of a sub-document)
+24:08 Find sub-documents
+25:17 Create index for Text search 
+25:53 Text search
+27:00 Filter: Greater/less than
+28:34 Filter Greater/less than equals
+29:03 Exit
+29:15 MongoDB Compass graphical interface
+30:15 MongoDB Atlas
+
+
+db.customers.find().limit(2).sort({last_name: 1 }).pretty()
+
+
+insert data:
+db.posts.insert({title:"Post one", body:"Boby of post one", category:"News",	likes:4,tags:['news','events'], user:{name: "John Doe",status: "author"},date:Date()});
+
+Multiple Entries:
+db.posts.insertMany([{
+		title:"Post Two",
+		body:"body of post Two",
+		category:"Technology",
+		date:Date()
+		},
+		{
+		title:"Post Three",
+		body:"Body of post Three",
+		category:"Technology",
+		date:Date()
+		},
+		{
+		title:"Post Three",
+		body:"Body of post Three",
+		category:"Technology",
+		date:Date()
+		}]);
+		
+		
+db.posts.find().forEach(function(doc){print('Blog post: ' + doc.title)})
+db.posts.findOne({category: 'News'})
+
+
+		
+		
+		

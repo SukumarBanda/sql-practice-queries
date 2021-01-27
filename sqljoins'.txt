@@ -1,0 +1,62 @@
+1. Difference between UNION and UNION ALL:
+UNION will omit duplicate records  
+UNION ALL will include duplicate records.
+
+
+Emp1
+sno	Name	Dept		pincode         
+101	Sai	CSE		515004
+102	kumar	EEE		515003
+103	Anil	ECE		515002
+104	Sukumar Dev		27000
+105	Banda	Dev		515001
+
+Emp2:
+sno	Name	Dept		pincode
+101	Abhi	CSE		515004
+102	Anil	EEE		515003
+103	Verma	ECE		515002
+104	Sukumar Dev		27000
+105	Banda	Dev		515001
+
+Join:	
+SELECT * FROM Emp1 JOIN Emp2 ON Emp1.Name = Emp2.Name;
+
+sno	Name	Dept	pincode	sno	Name	Dept	pincode
+103	Anil	ECE	515002		102	Anil	EEE	515003
+104	Sukumar Dev	27000		104	Sukumar Dev	27000
+105	Banda	Dev	515001		105	Banda	Dev	515001
+
+Left join:
+SELECT * FROM Emp1 left JOIN Emp2 ON Emp1.Name = Emp2.Name;
+
+sno	Name	Dept	pincode	sno	Name	Dept	pincode
+101	Sai	CSE	515004		NULL	NULL	NULL	NULL
+102	kumar	EEE	515003		NULL	NULL	NULL	NULL
+103	Anil	ECE	515002		102	Anil	EEE	515003
+104	Sukumar Dev	27000		104	Sukumar Dev	27000
+105	Banda	Dev	515001		105	Banda	Dev	515001
+
+
+
+Right join:
+SELECT * FROM Emp1 Right JOIN Emp2 ON Emp1.Name = Emp2.Name;
+ 
+sno	Name	Dept	pincode	sno	Name	Dept	pincode
+NULL	NULL	NULL	NULL		101	Abhi	CSE	515004
+103	Anil	ECE	515002		102	Anil	EEE	515003
+NULL	NULL	NULL	NULL		103	Verma	ECE	515002
+104	Sukumar Dev	27000		104	Sukumar Dev	27000
+105	Banda	Dev	515001		105	Banda	Dev	515001
+ 
+ 
+
+Not in Table 2 but in table 1:
+
+select Domain1.Domain 
+from Domain1
+left join Domain2 
+on Domain1.Domain =  Domain2.Domain 
+where Domain2.Domain is NULL;
+
+

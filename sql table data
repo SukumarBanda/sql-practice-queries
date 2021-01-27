@@ -1,0 +1,187 @@
+https://www.toptal.com/sql/interview-questions#:~:text=Write%20a%20query%20to%20fetch,without%20using%20the%20NOT%20keyword.&text=Write%20a%20query%20to%20add,3%20where%20Nmbr%20is%201.&text=Write%20a%20SQL%20query%20to%20find%20the%2010th%20highest%20employee,Explain%20your%20answer.
+
+
+
+SELECT Book FROM Books GROUP BY Book HAVING count(Book) >= 2
+
+
+select Book, sum(customer) as Customer, sum(Author) as Author from Books group by Book;
+select * from Books;
+select Book,   count(Customer) from Books group by Book order by Book Asc;
+SELECT Book, count(Customer) as Customer FROM Books;
+select Book,count(Customer) as Customer ,count(Author) as Author from Books;
+
+
+
+
+
+select Book, count(distinct Author) as AuthorsCnt, count(distinct Customer) as CustomersCnt 
+from Books 
+group by Book 
+order by Book Asc;
+
+
+Second highest salary:
+select max(salary) from Emp where  salary not in (select max(salary) from Emp);
+select distinct salary from Emp order by salary desc limit 1,1;
+select salary from Emp where salary < (select max(salary) from Emp) order by salary desc limit 1;
+
+
+Department wise highest salary:
+select max(salary), deptno from Employee group by deptno; 
+
+employees in each Department:
+select count(*),deptno from Employee group by deptno; 
+
+
+
+============================================================================================================================================================
+
+
+create table EmployeeInfo (EmpID int,EmpFname varchar(15), EmpLname varchar(15),Department varchar(10),Project varchar(15),Address varchar(15),DOB DATE,Gender char(1));
+                        
+insert into EmployeeInfo values(1,"Sanjay","Mehra","HR","P1","Hyderabad",'1976-12-01','M');                        
+insert into EmployeeInfo values(2,"Ananya","Mishra","Admin","P2","Delhi(DEL)",'1968-05-02','F'),
+				(3,"Rohan","Diwan","Account","P3","Mumbai(BOM)",'1980-01-01','M'),
+                               (4,"Sonia","Kulkarni","HR","P1","Hyderabad(HYD)",'1992-02-05','F'),
+                               (5,"Ankit","Kapoor","Admin","P2","Delhi(DEL)",'1994-03-07','M');
+                               
+select * 
+from EmployeeInfo;                               
+
+create table EmployeePosition(EmpID int,EmpPosition varchar(10),DateOfJoining DATE,Salary int);
+insert into EmployeePosition values(1,"Manager",'2019-01-05',500000),
+    				   (2,"Executive",'2019-02-05',75000),
+				   (3,"Manager",'2019-01-05',90000),
+				   (2,"Lead",'2019-02-05',85000),
+                                  (1,"Executive",'2019-01-05',300000);
+                                  
+                                   
+select *  
+from EmployeePosition;            
+
+
+select lower(EmpFname) as EmpName 
+from EmployeeInfo;
+
+
+select upper(EmpFname) as EmpName 
+from EmployeeInfo;
+
+select count(*) 
+from EmployeeInfo 
+where Department = 'HR';
+
+SELECT CURDATE();
+
+first 4 characters:
+select left(EmpLname,4) 
+from  EmployeeInfo;
+
+Between: 
+select * 
+from EmployeePosition 
+where Salary BETWEEN '50000' AND '100000';
+
+
+concatenate two columns:
+select CONCAT(EmpFname,' ',EmpLname) as 'FullName' 
+from EmployeeInfo;
+
+select upper(left(EmpLname,4)),EmpLname,Lower(right(EmpLname,4)) 
+from  EmployeeInfo;
+
+
+select * 
+from  EmployeeInfo;
+
+ 
+
+
+select * 
+from EmployeePosition 
+order by salary desc 
+limit 2; 
+
+ 
+
+select EmpFname 
+from EmployeeInfo 
+where EmpFname like 's%';
+
+
+
+
+select count(EmpID) from  EmployeeInfo where DOB in 
+between '1970-05-02' and '1975-12-31' ;
+
+Inner join - position is manager:
+select E.EmpFname,E.EmpLname, P.EmpPosition
+from EmployeeInfo E inner join EmployeePosition P on 
+E.EmpID = P.EmpID and P.EmpPosition like 'Manager';
+
+
+group by department and count:
+select Department,count(EmpId) as EmpDeptCount
+from EmployeeInfo 
+group by Department
+order by EmpDeptcount desc;
+
+
+
+
+Even and Odd records of table;
+select * 
+from EmployeeInfo
+where EmpID in (select EMPID from EmployeeInfo where EmpID%0=2);
+
+select * 
+from EmployeeInfo
+where EmpID in (select EMPID from EmployeeInfo where EmpID%2=1);
+
+
+Max/Min  top/low two salaries/salary:
+
+select distinct salary 
+from EmployeePosition 
+order by salary desc limit 0,2;
+
+select distinct salary 
+from EmployeePosition 
+order by salary asc limit 0,2;
+
+
+top third salary:
+select * 
+from EmployeePosition 
+order by salary desc limit 2,1;
+
+top third salary without duplicates:
+select * 
+from Employee 
+where salary like (select distinct salary from Employee order by salary desc limit 2,1);
+
+
+
+
+duplicate records from table:
+SELECT EmpID, EmpFname, Department 
+FROM EmployeeInfo 
+GROUP BY EmpID, EmpFname, Department 
+HAVING COUNT(*) > 1;
+
+
+Employees working in same department:
+Select DISTINCT E.EmpID, E.EmpFname, E.Department 
+FROM EmployeeInfo E, Employee E1 
+WHERE E.Department = E1.Department AND E.EmpID != E1.EmpID;
+
+
+Employees working lessthan 2 in the same department:
+SELECT DEPARTMENT, COUNT(EmpID) as 'EmpNo' 
+FROM EmployeeInfo 
+GROUP BY DEPARTMENT 
+HAVING COUNT(EmpD) < 2;
+
+
+

@@ -1,0 +1,124 @@
+Mongo db:
+
+sudo systemctl status mongodb
+sudo systemctl start mongodb
+
+mongo
+show dbs
+use admin
+show collections
+db.system.version.find({})
+
+
+
+{
+	first_name:"John",
+	last_name:Joe,
+	memberships: ["mem1","mem2"],
+	address:{
+		street: "4 main st",
+		city:"Boston"
+	}
+	contacts:[
+		{name:"Brad", realtionship:"friend"},
+	]
+}
+
+
+
+db.createUser({
+	user:"sukumar",
+	pwd:"12356",
+	roles:["readWrite","dbAdmin"]
+	});
+
+
+
+
+Collections:  Are similar to  tables in relational database. Hold doc's or records
+db.createCollection('customers');
+show collections
+db.cusotmers.insert({first_name:"Sri",last_name:"Doe"});
+db.customers.find();
+
+
+Multiple Documents in array:
+db.cusotmers.insert([{first_name:"Sri",last_name:"Doe"},
+		      {first_name:Shiv,last_name:Shankar},
+		      {first_name:"Sri", last_name:"Lakshmi"},
+		      {first_name:"Gouri, last_name:Shankar"},
+		   ]);
+
+db.customers.find();
+
+
+db.customers.find().pretty();
+db.customers.update({first_name:"Sri"},
+		     {first_name:"Maha",last_name:"Vishnu",gender:"Male"});
+
+
+
+SET: to add the field to record
+db.customers.update({first_name:"Shiv"},{$set:{gender:"male"}});
+
+db.customers.update({first_name:"Shiv"},{$set:{age:45}});
+db.customers.find().pretty();
+
+Increment: inc
+db.customers.update({first_name:"Shiv"},{$inc:{age:5}});
+
+db.customers.update({first_name:"Shiv"},{$unset:{age:1}});
+
+UPSERT: when update on unavailable record, upsert checks and insert into the db
+
+db.customers.update({first_name:"Hari"},
+ 		    {first_name:"Hari",last_name:"Krishna"});
+
+
+db.customers.update((first_name:"Hari"),
+					{first_name:"Hari",last_name:"Krishna"},{upsert:true});
+
+db.customers.update();
+
+Rename: rename a field
+db.customers.update({first_name:"Shiva"}
+					{$rename:{"gender":"sex"}}
+					);
+
+db.customers.find().pretty();
+
+remove recordes:
+db.customer.remove({first_name:"Shiva"},{justOne:true});
+
+
+db.customes.find([{first_name:"Sharon"},{first_name:"Troy"}]);
+
+gender having male:
+db.customers.find(gender:"male");
+
+
+Age lessthan to 40;
+db.customers.find({age:{$lt:40}}).pretty();
+
+db.customers.find({"address.city":"Boston"}).pretty();
+
+
+Memberships:
+db.customers.find({memberships:"mem1"});
+
+sorts last_name in Asc order: 
+db.cusotmers.find().sort({last_name:1});
+
+sorts last_name in Desc order: 
+db.cusotmers.find().sort({last_name:-1});
+
+count documents: 
+db.customers.find({gender:"male"}).count();
+
+db.customers.find().limit(4);
+db.customers.find().limit(4).sort({last_name:1});
+
+
+db.customers.find().forEach(function(doc){print("Cusomter Name: "+doc.first_name)});
+
+sudo systemctl stop mongodb.

@@ -1,0 +1,4 @@
+19th january-2021
+https://data-flair.training/forums/topic/write-a-word-count-program-using-scala-language-dont-use-spark-core-or-sql/
+https://docs.cloudera.com/HDPDocuments/HDP2/HDP-2.0.0.2/ds_Hive/language_manual/ptf-window.html
+https://explainextended.com/2009/09/18/not-in-vs-not-exists-vs-left-join-is-null-mysql/
