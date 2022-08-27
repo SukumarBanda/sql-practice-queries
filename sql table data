@@ -183,5 +183,5 @@ FROM EmployeeInfo
 GROUP BY DEPARTMENT 
 HAVING COUNT(EmpD) < 2;
 
-
+select * from students;
 
